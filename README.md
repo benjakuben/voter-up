@@ -24,7 +24,8 @@ pytest
 
 **Required**
 - [x] Stub out pages (Home/form and results)
-- [ ] Confirm initial API call
+- [x] Confirm initial API call
+- [ ] Wire up form to the API call
 - [ ] Parse results
 - [ ] Format results nicely for display
 

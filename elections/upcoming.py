@@ -1,4 +1,6 @@
 import functools
+import requests
+import sys
 
 from elections.us_states import postal_abbreviations
 
@@ -18,4 +20,20 @@ def display_form():
 @bp.route('/search', methods=['POST'])
 def search():
     if request.method == 'POST':
+        # Make a request to the TurboVote API
+
+        ### BJJ TESTING WITH HARDCODE VALUE
+        ### Grabbed a place with known elections from here: https://github.com/democracyworks/dw-practical-upcoming-elections/wiki/Upcoming-Elections
+        url = 'https://api.turbovote.org/elections/upcoming?district-divisions=ocd-division/country:us/state:fl/place:coral_springs'
+
+        # Configure the request for JSON
+        headers = {
+            'Content-Type': 'application/json',
+        }
+        response = requests.get(url, headers=headers)
+    
+        print(f'TESTING::status code={response.status_code}', file=sys.stderr)
+        print('\n\nTESTING::response.content\n\n', file=sys.stderr)
+        print(response.content, file=sys.stderr)
+
         return render_template('election_results.html')
