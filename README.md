@@ -23,7 +23,7 @@ pytest
 # Task List
 
 **Required**
-- [ ] Stub out pages (Home/form and results)
+- [x] Stub out pages (Home/form and results)
 - [ ] Confirm initial API call
 - [ ] Parse results
 - [ ] Format results nicely for display

@@ -9,10 +9,13 @@ from flask import (
 bp = Blueprint('address_form', __name__, url_prefix='/')
 
 
-@bp.route('/', methods=('GET', 'POST'))
-def search():
+@bp.route('/', methods=['GET'])
+def display_form():
     """Take in an address."""
+    return render_template('address_form.html', states=postal_abbreviations)
+
+
+@bp.route('/search', methods=['POST'])
+def search():
     if request.method == 'POST':
         return render_template('election_results.html')
-
-    return render_template('address_form.html', states=postal_abbreviations)
