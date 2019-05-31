@@ -22,13 +22,13 @@ pytest
 
 # Task List
 
-*Required*
+**Required**
 - [ ] Stub out pages (Home/form and results)
 - [ ] Confirm initial API call
 - [ ] Parse results
 - [ ] Format results nicely for display
 
-*Stretch goals*
+**Stretch goals**
 - [ ] Validate form input
 - [ ] Add input tests
 - [ ] Add friendly error messages
