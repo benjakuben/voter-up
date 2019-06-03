@@ -1,5 +1,7 @@
 # Running this app
 
+Follow the instructions below to install requirements and run the app for this interview exercise.
+
 ## Installation
 If Flask and pytest are needed: 
 ```
@@ -25,9 +27,9 @@ pytest
 **Required**
 - [x] Stub out pages (Home/form and results)
 - [x] Confirm initial API call
-- [ ] Wire up form to the API call
-- [ ] Parse results
-- [ ] Format results nicely for display
+- [x] Wire up form to the API call <== ~ 2 hours of work
+- [x] Parse results
+- [x] Format results nicely for display <== ~ 3 hours of work
 
 **Stretch goals**
 - [ ] Validate form input

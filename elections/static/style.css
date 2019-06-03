@@ -41,3 +41,14 @@ input:focus {
 button {
   margin-left: .5em;
 }
+
+.test_alert {
+  border: 1px solid #444444;
+  background-color: #eeeeee;
+  padding: 4px;
+  font-size: 12px;
+}
+
+h2 {
+  font-size: 18px;
+}

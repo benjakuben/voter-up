@@ -1,4 +1,6 @@
 import os
+import jinja2
+from datetime import datetime
 
 from flask import Flask
 
@@ -28,4 +30,16 @@ def create_app(test_config=None):
     from elections import upcoming
     app.register_blueprint(upcoming.bp)
 
+    # Register the template filter with the Jinja Environment
+    app.jinja_env.filters['formatdatetime'] = format_datetime
+
     return app
+
+
+def format_datetime(value, format="%b %d, %Y"):
+    """Format a date time to (Default): d Mon YYYY HH:MM P"""
+    if value is None:
+        return ""
+    else: 
+        date = datetime.strptime(value, '%Y-%m-%dT%H:%M:%SZ')
+        return date.strftime(format)

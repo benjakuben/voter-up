@@ -1,6 +1,7 @@
 import functools
 import requests
 import sys
+import json
 
 from elections.us_states import postal_abbreviations
 
@@ -27,35 +28,45 @@ def search():
         # Grabbed a place with known elections from here: https://github.com/democracyworks/dw-practical-upcoming-elections/wiki/Upcoming-Elections
         url = base_url + query_string
 
-        # Configure the request for JSON
-        headers = {
-            'Content-Type': 'application/json',
-        }
-        response = requests.get(url, headers=headers)
+        # Make the request (formatted as JSON)
+        response = requests.get(
+            url, 
+            headers={'Accept': 'application/json'},
+        )
     
-        # BJJ TESTING
-        print(url, file=sys.stderr)
-        return response.content
-        #return render_template('election_results.html')
+        data = process_response(response.content)
+
+        return render_template('election_results.html', data=data)
 
 
 def build_query_string(form_data):
-    q = '?district-divisions=ocd-division/'
+    q_base = '?district-divisions='
+    params = 'ocd-division/'
+    ocd_id_count = 0
     
     # Default: Only in the US
     country = 'us'
-    q += f'country:{country}'
+    params += f'country:{country}'
 
     # Try to process each form input field and add it to the query string
     # Example: '?district-divisions=ocd-division/country:us/state:fl/place:coral_springs'
+
+    # For this exercise, we'll only use state and city (place)
     key_list = ['state', 'city']
+
     for key in key_list:
         param_name = get_query_param_name(key)
         value = form_data.get(key)
-        if value is not None:
-            q += f'/{param_name}:{format_for_call(value)}'
 
-    return q
+        if value is not None:
+            # Separate multiple OCD_IDs with a comma
+            if ocd_id_count > 0:
+                params += f',{params}'
+
+            params += f'/{param_name}:{format_for_call(value)}'
+            ocd_id_count += 1
+
+    return q_base + params
 
 
 # TODO: Clean this up into a helper class that uses constants and takes care of mappings
@@ -77,3 +88,10 @@ def format_for_call(value):
 
     # Convert spaces to underscores
     return value.replace(' ', '_')
+
+
+def process_response(json_data):
+    if json_data == b'[]':
+        return None
+    else:
+        return json.loads(json_data)

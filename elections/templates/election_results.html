@@ -3,6 +3,18 @@
 {% block content %}
 <div>
   <h1>Election Results</h1>
-  <p>TODO</p>
+
+  {% if data is none: %}
+  <p>There are no upcoming elections listed for your location.</p>
+  {% else %}
+  {% for item in data %}
+  <h2>Upcoming Election: {{ item['date']|formatdatetime }}</h2>
+  <p>{{ item['description'] }}</p>
+  <p>
+    <a href="{{ item['website'] }}">Website</a> | 
+    <a href="{{ item['polling-place-url'] }}">Polling Place</a></p>
+  <hr>
+  {% endfor %}
+  {% endif %}
 </div>
 {% endblock %}
