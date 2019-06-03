@@ -36,6 +36,7 @@ def create_app(test_config=None):
     return app
 
 
+# Jinja template filter to format a date nicely on the results page
 def format_datetime(value, format="%b %d, %Y"):
     """Format a date time to (Default): d Mon YYYY HH:MM P"""
     if value is None:

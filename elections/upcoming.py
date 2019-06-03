@@ -25,10 +25,8 @@ def search():
         base_url = 'https://api.turbovote.org/elections/upcoming'
         query_string = build_query_string(request.form)
 
-        # Grabbed a place with known elections from here: https://github.com/democracyworks/dw-practical-upcoming-elections/wiki/Upcoming-Elections
-        url = base_url + query_string
-
         # Make the request (formatted as JSON)
+        url = base_url + query_string
         response = requests.get(
             url, 
             headers={'Accept': 'application/json'},
@@ -91,6 +89,7 @@ def format_for_call(value):
 
 
 def process_response(json_data):
+    # This first check is for how an empty response comes back
     if json_data == b'[]':
         return None
     else:
